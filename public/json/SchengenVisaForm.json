@@ -1,0 +1,20 @@
+[
+    { "label": "Фамилия", "type": "short_text", "required": true },
+    { "label": "Имя", "type": "short_text", "required": true },
+    { "label": "Дата рождения", "type": "date", "required": true },
+    { "label": "Место рождения", "type": "short_text", "required": true },
+    { "label": "Гражданство", "type": "short_text", "required": true },
+    { "label": "Пол", "type": "dropdown", "required": true, "choices": ["Мужчина", "Женщина"] },
+    { "label": "Семейное положение", "type": "dropdown", "required": true, "choices": ["Холост/Не замужем", "Женат/Замужем", "Разведён(а)", "Вдовец/Вдова"] },
+    { "label": "Номер паспорта", "type": "short_text", "required": true },
+    { "label": "Дата выдачи паспорта", "type": "date", "required": true },
+    { "label": "Срок действия паспорта", "type": "date", "required": true },
+    { "label": "Адрес проживания", "type": "short_text", "required": true },
+    { "label": "Телефон", "type": "short_text", "required": true },
+    { "label": "Текущая профессия", "type": "short_text", "required": false },
+    { "label": "Работодатель или учебное заведение", "type": "short_text", "required": false },
+    { "label": "Цель поездки", "type": "dropdown", "required": true, "choices": ["Туризм", "Деловая поездка", "Учёба", "Посещение родственников", "Медицинское лечение"] },
+    { "label": "Дата въезда", "type": "date", "required": true },
+    { "label": "Дата выезда", "type": "date", "required": true }
+  ]
+  

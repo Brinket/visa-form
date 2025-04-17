@@ -10,7 +10,7 @@ export default function Page() {
 
   useEffect(() => {
     async function fetchFormTemplate() {
-      const response = await fetch("/json/Schengen_Spain_Kaz.json");
+      const response = await fetch("/json/SchengenVisaForm.json");
       const data = await response.json();
       setFormTemplate(data);
     }
@@ -21,38 +21,18 @@ export default function Page() {
   async function createTypeform() {
     setCreating(true);
 
-    const fields = formTemplate.map(field => {
-      let type = "short_text"; // стандартный тип поля
-      if (field.type === "date") type = "date";
-      if (field.type === "file_upload") type = "file_upload";
-
-      return {
-        title: field.label,
-        type: type,
-        validations: {
-          required: field.required || false
-        }
-      };
-    });
-
-    const payload = {
-      title: "Форма на визу в Испанию",
-      fields: fields
-    };
-
-    const response = await fetch("https://api.typeform.com/forms", {
+    const response = await fetch("/api/create-typeform", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TYPEFORM_TOKEN}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ formTemplate })
     });
 
     const result = await response.json();
 
-    if (result.id) {
-      setFormLink(`https://form.typeform.com/to/${result.id}`);
+    if (result._links && result._links.display) {
+      setFormLink(result._links.display);
     }
 
     setCreating(false);
@@ -78,13 +58,14 @@ export default function Page() {
 
       {formLink && (
         <div className="mt-4">
+          <p className="text-green-600 font-semibold">Форма успешно создана!</p>
           <a
             href={formLink}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 underline"
           >
-            Перейти к созданной форме
+            Перейти к форме Typeform
           </a>
         </div>
       )}
