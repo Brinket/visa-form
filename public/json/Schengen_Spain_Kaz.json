@@ -1,0 +1,181 @@
+[
+    {
+      "type": "select",
+      "label": "Выберите цель поездки",
+      "name": "trip_purpose",
+      "required": true,
+      "options": [
+        "Туризм",
+        "Деловая поездка",
+        "Культурная или спортивная поездка",
+        "Посещение родственников или друзей",
+        "Обучение до 90 дней",
+        "Медицинское лечение",
+        "Транзит"
+      ]
+    },
+    {
+      "type": "file_upload",
+      "label": "Скан действующего паспорта",
+      "name": "passport_scan",
+      "required": true
+    },
+    {
+      "type": "file_upload",
+      "label": "Копия основной страницы паспорта",
+      "name": "passport_copy",
+      "required": true
+    },
+    {
+      "type": "file_upload",
+      "label": "Подтверждение законного проживания (если применимо)",
+      "name": "residence_proof",
+      "required": true
+    },
+    {
+      "type": "file_upload",
+      "label": "Заполненная анкета на визу",
+      "name": "application_form",
+      "required": true
+    },
+    {
+      "type": "file_upload",
+      "label": "Фотография 3,5x4,5 см",
+      "name": "photo",
+      "required": true
+    },
+    {
+      "type": "file_upload",
+      "label": "Квитанция об оплате визового сбора",
+      "name": "payment_receipt",
+      "required": true
+    },
+    {
+      "type": "file_upload",
+      "label": "Банковская справка о наличии средств",
+      "name": "bank_statement",
+      "required": true
+    },
+    {
+      "type": "file_upload",
+      "label": "Выписка по банковскому счету за последние 3 месяца",
+      "name": "bank_transactions",
+      "required": true
+    },
+    {
+      "type": "file_upload",
+      "label": "Документ о доходах: справка с работы/свидетельство ИП/пенсионная книжка/справка из учебного заведения",
+      "name": "income_proof",
+      "required": true
+    },
+    {
+      "type": "file_upload",
+      "label": "Страховой полис с покрытием от 30 000 евро",
+      "name": "insurance",
+      "required": true
+    },
+    {
+      "type": "file_upload",
+      "label": "Бронь авиабилетов в оба конца",
+      "name": "flight_booking",
+      "required": true
+    },
+    {
+      "type": "file_upload",
+      "label": "Подтверждение проживания (бронь отеля, аренда жилья и др.)",
+      "name": "accommodation_proof",
+      "required": true,
+      "show_if": {
+        "trip_purpose": [
+          "Туризм",
+          "Обучение до 90 дней",
+          "Медицинское лечение"
+        ]
+      }
+    },
+    {
+      "type": "file_upload",
+      "label": "Приглашение от компании/учреждения в Испании",
+      "name": "business_invitation",
+      "required": true,
+      "show_if": {
+        "trip_purpose": [
+          "Деловая поездка",
+          "Культурная или спортивная поездка"
+        ]
+      }
+    },
+    {
+      "type": "file_upload",
+      "label": "Копия удостоверения личности приглашающего лица",
+      "name": "host_id_copy",
+      "required": true,
+      "show_if": {
+        "trip_purpose": [
+          "Посещение родственников или друзей"
+        ]
+      }
+    },
+    {
+      "type": "file_upload",
+      "label": "Письмо-приглашение от родственника или друга",
+      "name": "invitation_letter_friend_family",
+      "required": true,
+      "show_if": {
+        "trip_purpose": [
+          "Посещение родственников или друзей"
+        ]
+      }
+    },
+    {
+      "type": "file_upload",
+      "label": "Письмо от учебного заведения о зачислении",
+      "name": "study_admission_letter",
+      "required": true,
+      "show_if": {
+        "trip_purpose": [
+          "Обучение до 90 дней"
+        ]
+      }
+    },
+    {
+      "type": "file_upload",
+      "label": "Документ о предоставлении стипендии (если есть)",
+      "name": "scholarship_proof",
+      "required": true,
+      "show_if": {
+        "trip_purpose": [
+          "Обучение до 90 дней"
+        ]
+      }
+    },
+    {
+      "type": "file_upload",
+      "label": "Письмо из медицинского центра о лечении",
+      "name": "medical_confirmation",
+      "required": true,
+      "show_if": {
+        "trip_purpose": [
+          "Медицинское лечение"
+        ]
+      }
+    },
+    {
+      "type": "file_upload",
+      "label": "Бронирование маршрута и виза в третью страну",
+      "name": "transit_documents",
+      "required": true,
+      "show_if": {
+        "trip_purpose": [
+          "Транзит"
+        ]
+      }
+    },
+    {
+      "type": "file_upload",
+      "label": "Документы на несовершеннолетнего (если заявитель несовершеннолетний)",
+      "name": "minor_documents",
+      "required": true
+    }
+  ]
+  
