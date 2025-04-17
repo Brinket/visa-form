@@ -43,7 +43,7 @@ export default function Page() {
     const response = await fetch("https://api.typeform.com/forms", {
       method: "POST",
       headers: {
-        Authorization: `Bearer tfp_DD9LNn6TCxERHs9UqAXn2NozQLKjP9vYxziDcN2qWYVY_e5NUNpEzP3M4`,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TYPEFORM_TOKEN}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify(payload)
