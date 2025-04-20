@@ -1,58 +1,61 @@
+// app/api/create-typeform/route.js
+
 export async function POST(request) {
   try {
-    const { fields } = await request.json();
+    const { fields } = await request.json(); // Получаем поля из тела запроса
 
-    const allowedTypes = ["text", "date"]; // Только текстовые и дата-поля
+    if (!fields || !Array.isArray(fields)) {
+      return new Response(
+        JSON.stringify({ status: "error", message: "Некорректные поля для создания формы." }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
+    // Фильтруем допустимые типы полей
+    const allowedTypes = ["short_text", "date"];
+    const filteredFields = fields.filter(field => allowedTypes.includes(field.type));
+
+    // Формируем правильный payload
     const payload = {
-      title: "Форма анкеты",
-      fields: fields
-        .filter(field => allowedTypes.includes(field.type)) // оставляем только text и date
-        .map(field => {
-          const typeMapping = {
-            text: "short_text",
-            date: "date"
-          };
-
-          const mappedType = typeMapping[field.type] || "short_text";
-
-          return {
-            title: field.label,
-            type: mappedType,
-            validations: {
-              required: field.required || false
-            }
-          };
-        })
+      title: "Форма анкеты", // Название формы
+      fields: filteredFields.map(field => ({
+        title: field.label,
+        type: field.type === "short_text" ? "short_text" : "date",
+        validations: { required: field.required || false }
+      }))
     };
 
-    console.log("Payload для Typeform:", JSON.stringify(payload, null, 2));
+    console.log("Отправляем payload в Typeform:", JSON.stringify(payload, null, 2));
 
-    const response = await fetch("https://api.typeform.com/forms", {
+    // Запрос в Typeform API
+    const typeformResponse = await fetch("https://api.typeform.com/forms", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.NEXT_PUBLIC_TYPEFORM_TOKEN}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.NEXT_PUBLIC_TYPEFORM_TOKEN}`
       },
       body: JSON.stringify(payload)
     });
 
-    if (!response.ok) {
-      const text = await response.text();
-      console.error("Ошибка от Typeform:", text);
+    const typeformResult = await typeformResponse.json();
+
+    if (!typeformResponse.ok) {
+      console.error("Ошибка от Typeform:", typeformResult);
       throw new Error("Ошибка при создании формы в Typeform");
     }
 
-    const result = await response.json();
+    // Успех
     return new Response(
-      JSON.stringify(result),
-      { status: 200 }
+      JSON.stringify(typeformResult),
+      { status: 200, headers: { "Content-Type": "application/json" } }
     );
+
   } catch (error) {
     console.error("Ошибка в create-typeform route:", error.message || error);
+
     return new Response(
-      JSON.stringify({ status: "error", message: error.message || "Ошибка создания формы." }),
-      { status: 500 }
+      JSON.stringify({ status: "error", message: "Ошибка при создании формы в Typeform" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 }
