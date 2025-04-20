@@ -1,3 +1,4 @@
+export const maxDuration = 50; // This function can run for a maximum of 50 seconds
 export async function POST(request) {
     try {
       const { url } = await request.json();
